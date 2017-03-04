@@ -11,22 +11,18 @@ module.exports = {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
   },
-  resolve: {
-    modulesDirectories: ['node_modules', 'shared'],
-    extensions: ['', 'js']
-  },
   module: {
     loaders: [
       {
         test: /\.js?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel']
+        loaders: ['react-hot-loader', 'babel-loader']
       }
     ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   devtool: 'inline-source-map',
   devServer: {

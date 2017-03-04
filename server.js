@@ -29,7 +29,7 @@ app.use((req, res) => {
           <title>Self Serve App Prototype</title>
         </head>
         <body>
-          <div id="app">${componentHTML}</div>
+          <div id="app"><div>${componentHTML}</div></div>
           <script type="application/javascript" src="/bundle.js"></script>
         </body>
       </html>
