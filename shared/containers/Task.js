@@ -3,7 +3,9 @@ import * as TaskActions from '../actions/Task'
 import Task from '../components/Task'
 
 const mapStateToProps = (state) => {
-  return state.task
+  return {
+    task: state.task
+  }
 }
 
 export default connect(mapStateToProps)(Task)

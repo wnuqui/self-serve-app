@@ -1,14 +1,17 @@
 import { connect } from 'react-redux'
-import * as TaskActions from '../actions/Task'
+import { selectTask } from '../actions/Task'
 import TaskSelector from '../components/TaskSelector'
+
+const mapStateToProps = (state) => {
+  return state.task
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
     selectTask: (taskName) => {
-      console.log(taskName)
-      // dispatch(selectTask(taskName))
+      dispatch(selectTask(taskName))
     }
   }
 }
 
-export default connect(mapDispatchToProps)(TaskSelector)
+export default connect(mapStateToProps, mapDispatchToProps)(TaskSelector)

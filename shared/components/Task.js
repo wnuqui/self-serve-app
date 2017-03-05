@@ -1,17 +1,18 @@
 import React from 'react'
-// import UpdateUser from '../containers/Task.UpdateUser'
-import Empty from './Task.Empty'
+import SelectTask from './Tasks/SelectTask'
+import UpdateUser from './Tasks/UpdateUser/index'
 
 const TASKS = {
-  // 'UPDATE_USER': UpdateUser
+  'UPDATE_USER': UpdateUser
 }
 
-export default ({ taskName, taskProps }) => {
-  if (!taskName) {
-    return <Empty />
-  }
+export default ({ task }) => {
+  const CurrentTask = TASKS[task.name] || SelectTask
   
-  const CurrentTask = TASKS[taskName]
-  
-  return <CurrentTask { ...taskProps } />
+  return (
+    <div>
+      <h1>Task</h1>
+      <CurrentTask { ...task } />
+    </div>
+  )
 }
