@@ -4,6 +4,5 @@ import { Route } from 'react-router'
 import App from './components'
 
 export default (
-  <Route component={App} path="/">
-  </Route>
+  <Route path="/" component={ App }></Route>
 )

@@ -2,13 +2,19 @@
 
 import express from 'express'
 import React from 'react'
+import { Provider } from 'react-redux'
+import { createStore, combineReducers } from 'redux'
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 import routes from './shared/routes'
+import * as reducers from './shared/reducers'
 
 const app = express()
 
 app.use((req, res) => {
+  const reducer = combineReducers(reducers)
+  const store = createStore(reducer)
+  
   match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
     if (err) {
       console.log(err)
@@ -18,8 +24,12 @@ app.use((req, res) => {
     if (!renderProps) return res.status(404).end('Not found.')
 
     const componentHTML = renderToString((
-      <RouterContext {...renderProps} />
+      <Provider store={ store }>
+        <RouterContext {...renderProps} />
+      </Provider>
     ))
+    
+    const initialState = store.getState()
     
     const HTML = `
       <!DOCTYPE html>
@@ -31,6 +41,9 @@ app.use((req, res) => {
         <body>
           <div id="app"><div>${componentHTML}</div></div>
           <script type="application/javascript" src="/bundle.js"></script>
+          <script type="application/javascript">
+            window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+          </script>
         </body>
       </html>
     `
