@@ -7,13 +7,16 @@ export default function taskReducer(state = defaultState, action) {
   switch(action.type) {
     case 'SELECT_TASK':
       return Object.assign({}, state, {
-        name: action.name
+        name: action.name,
+        step: 0
       })
-    case 'MOVE':
+    case 'UPDATE_TASK':
       return Object.assign({}, state, {
-        step: action.step,
-        data: action.data
+        data: action.data,
+        step: action.step
       })
+    case 'CLEAR_TASK':
+      return {}
     default:
       return state
   }

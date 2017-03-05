@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import * as TaskActions from '../actions/Task'
+import { updateTask, clearTask } from '../actions/Task'
 import Task from '../components/Task'
 
 const mapStateToProps = (state) => {
@@ -8,4 +8,15 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Task)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateTask: (data, step) => {
+      dispatch(updateTask(data, step))
+    },
+    clearTask: () => {
+      dispatch(clearTask())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Task)

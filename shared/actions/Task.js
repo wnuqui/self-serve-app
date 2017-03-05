@@ -6,11 +6,18 @@ export function selectTask(name) {
   }
 }
 
-export function move(step, data) {
+export function updateTask(data, step) {
   return {
-    type: 'MOVE',
+    type: 'UPDATE_TASK',
     date: Date.now(),
-    step,
-    data
+    data,
+    step
+  }
+}
+
+export function clearTask(data, step) {
+  return {
+    type: 'CLEAR_TASK',
+    date: Date.now()
   }
 }
