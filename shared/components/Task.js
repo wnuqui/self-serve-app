@@ -6,14 +6,14 @@ const TASKS = {
   'UPDATE_USER': UpdateUser
 }
 
-export default ({ task, updateTask, clearTask }) => {
+export default ({ task, fetchTaskData, clearTask, errorTaskData }) => {
   const CurrentTask = TASKS[task.name] || SelectTask
   
   return (
     <div>
       <h1>Task: { task.name }</h1>
       <h1>Step: { task.step }</h1>
-      <CurrentTask task={ task } updateTask={ updateTask } clearTask={ clearTask } />
+      <CurrentTask task={ task } fetchTaskData={ fetchTaskData } clearTask={ clearTask } errorTaskData={ errorTaskData } />
     </div>
   )
 }

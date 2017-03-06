@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { updateTask, clearTask } from '../actions/Task'
+import { fetchTaskData, errorTaskData, clearTask } from '../actions/Task'
 import Task from '../components/Task'
 
 const mapStateToProps = (state) => {
@@ -10,8 +10,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateTask: (data, step) => {
-      dispatch(updateTask(data, step))
+    fetchTaskData: (url, validate) => {
+      dispatch(fetchTaskData(url, validate))
+    },
+    errorTaskData: (error) => {
+      dispatch(errorTaskData(error))
     },
     clearTask: () => {
       dispatch(clearTask())

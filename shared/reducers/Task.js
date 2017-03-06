@@ -10,13 +10,17 @@ export default function taskReducer(state = defaultState, action) {
         name: action.name,
         step: 0
       })
-    case 'UPDATE_TASK':
+    case 'UPDATE_TASK_DATA':
       return Object.assign({}, state, {
         data: action.data,
-        step: action.step
+        step: state.step + 1
       })
     case 'CLEAR_TASK':
       return {}
+    case 'DISPLAY_ERROR':
+      return Object.assign({}, state, {
+        error: action.error
+      })
     default:
       return state
   }
