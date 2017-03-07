@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { fetchTaskData, errorTaskData, clearTask } from '../actions/Task'
-import Task from '../components/Task'
+import Task from '../components/Task/index'
 
 const mapStateToProps = (state) => {
   return {

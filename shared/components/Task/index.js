@@ -10,10 +10,9 @@ export default ({ task, fetchTaskData, clearTask, errorTaskData }) => {
   const CurrentTask = TASKS[task.name] || SelectTask
   
   return (
-    <div>
-      <h1>Task: { task.name }</h1>
-      <h1>Step: { task.step }</h1>
+    <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+      <h1>Task: { task.name }, Step: { task.step }</h1>
       <CurrentTask task={ task } fetchTaskData={ fetchTaskData } clearTask={ clearTask } errorTaskData={ errorTaskData } />
-    </div>
+    </main>
   )
 }

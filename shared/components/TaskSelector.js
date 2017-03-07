@@ -2,11 +2,10 @@ import React from 'react'
 
 export default ({ selectTask }) => {
   return (
-    <div>
-      <h1>TaskSelector</h1>
-      <ul>
-        <li onClick={ () => { selectTask('UPDATE_USER') } }>Update User</li>
+    <nav className="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+      <ul className="nav nav-pills flex-column">
+        <li className="nav-item" onClick={ () => { selectTask('UPDATE_USER') } }><a className="nav-link">Update User</a></li>
       </ul>
-    </div>
+    </nav>
   )
 }
