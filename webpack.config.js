@@ -12,21 +12,21 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot-loader', 'babel-loader']
+        use: ['react-hot-loader', 'babel-loader']
       },
       {
         test: /\.css?$/,
-        loaders: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
   devtool: 'inline-source-map',
   devServer: {

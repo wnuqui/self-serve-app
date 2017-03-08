@@ -2,7 +2,6 @@ import React from 'react'
 import Navbar from '../containers/Navbar'
 import TaskSelector from '../containers/TaskSelector'
 import Task from '../containers/Task'
-import styles from '../../client/custom.css'
 
 export default () => {
   return (
