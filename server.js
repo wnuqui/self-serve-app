@@ -67,7 +67,7 @@ app.use('/*', (req, res) => {
       body: null
     }
     
-    fetch(opts.url)
+    fetch(opts.url, opts)
       .then((response) => {
         return response.json()
       })
