@@ -54,11 +54,26 @@ app.use('/*', (req, res) => {
       res.end(HTML)  
     })
   } else {
-    console.log(req.method, 'http://localhost:3000/' + req.originalUrl) // GET /users/:id
-    fetch('http://localhost:3000/' + req.originalUrl, {
-      method: req.method
-    }).then((res) => {
-        console.log(res)
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    
+    let opts = {
+      url: 'http://localhost:3000' + req.originalUrl,
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      },
+      body: null
+    }
+    
+    fetch(opts.url)
+      .then((response) => {
+        return response.json()
+      })
+      .then((response) => {
+        console.log(response)
+        res.status(200).end(JSON.stringify(response))
       })
   }
 })

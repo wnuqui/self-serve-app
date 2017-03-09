@@ -31,24 +31,22 @@ export function displayError(error) {
   }
 }
 
-export function fetchTaskData(url, validate) {
+export function fetchTaskData(opts, validate) {
   return function(dispatch) {
-    fetch(url)
-      .then((res) => {
-        if (!res.ok) throw Error(res.statusText)
-        
-        return res
+    fetch(opts.url)
+      .then((response) => {
+        return response.json()
       })
-      .then(res => res.json())
-      .then(data => {
-        if (validate(data)) {
-          dispatch(updateTaskData(data))
-        } else {
-          // inspect error
-          let error = data.error
-          dispatch(displayError(error))
-        }
+      .then((response) => {
+        console.log(response)
+      //   return data.json()
+      //   // if (validate(data)) {
+      //   //   dispatch(updateTaskData(data))
+      //   // } else {
+      //   //   // inspect error
+      //   //   let error = data.error
+      //   //   dispatch(displayError(error))
+      //   // }
       })
-      .catch((err) => { console.log(err) })
   }
 }

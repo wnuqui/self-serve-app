@@ -9,7 +9,16 @@ export default ({ task, fetchTaskData, errorTaskData, clearTask }) => {
     if (uuid) {
       let url = `http://api.foo.localhost:3001/users/${uuid}`
       
-      fetchTaskData(url, (data) => {
+      fetchTaskData({
+        url: url,
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        },
+        body: null
+      }, (data) => {
         return true
       })
     } else {
