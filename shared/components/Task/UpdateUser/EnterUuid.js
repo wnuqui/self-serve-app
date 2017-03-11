@@ -7,29 +7,29 @@ export default ({ task, fetchTaskData, errorTaskData, clearTask }) => {
     let uuid = e.target.querySelector('.uuid').value
     
     if (uuid) {
-      let url = `http://api.foo.localhost:3001/users/${uuid}`
-      
+      var headers = new Headers()
       fetchTaskData({
-        url: url,
-        method: 'GET',
+        url: `http://api.foo.localhost:3001/users/${uuid}`,
+        method: 'POST',
         mode: 'cors',
+        // cache: 'default',
         headers: {
-          'Access-Control-Allow-Origin': '*',
+          // 'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
         },
-        body: null
+        body: JSON.stringify({ test: true })
       }, (data) => {
-        return true
+        return !data.errors
       })
     } else {
-      errorTaskData('Must enter valid uuid')
+      console.log('Enter valid uuid')
     }
   }
   
   return (
     <ul>
       <li>Please enter UUID</li>
-      { task.error ? <li>task.error</li> : <span /> }
+      { task.error ? JSON.stringify(task.error) : null }
       <li>
         <form onSubmit={ (e) => {  submitForm(e) } }>
           <input className="uuid" type="text"></input>

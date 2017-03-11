@@ -33,20 +33,17 @@ export function displayError(error) {
 
 export function fetchTaskData(opts, validate) {
   return function(dispatch) {
-    fetch(opts.url)
+    console.log(opts)
+    fetch(opts.url, opts)
       .then((response) => {
         return response.json()
       })
       .then((response) => {
-        console.log(response)
-      //   return data.json()
-      //   // if (validate(data)) {
-      //   //   dispatch(updateTaskData(data))
-      //   // } else {
-      //   //   // inspect error
-      //   //   let error = data.error
-      //   //   dispatch(displayError(error))
-      //   // }
+        if (validate(response)) {
+          dispatch(updateTaskData(response))
+        } else {
+          dispatch(displayError(response.errors))
+        }
       })
   }
 }

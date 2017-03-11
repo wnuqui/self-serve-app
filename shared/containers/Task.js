@@ -13,9 +13,6 @@ const mapDispatchToProps = (dispatch) => {
     fetchTaskData: (url, validate) => {
       dispatch(fetchTaskData(url, validate))
     },
-    errorTaskData: (error) => {
-      dispatch(errorTaskData(error))
-    },
     clearTask: () => {
       dispatch(clearTask())
     }

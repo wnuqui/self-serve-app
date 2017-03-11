@@ -24,6 +24,7 @@
   "dependencies": {
     "babel-loader": "^6.3.2",
     "babel-runtime": "^6.23.0",
+    "body-parser": "^1.17.1",
     "express": "^4.15.0",
     "history": "^4.5.1",
     "isomorphic-fetch": "^2.2.1",

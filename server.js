@@ -9,9 +9,11 @@ import { match, RouterContext } from 'react-router'
 import routes from './shared/routes'
 import * as reducers from './shared/reducers'
 import fetch from 'isomorphic-fetch'
+import bodyParser from 'body-parser'
 
 const app = express()
 
+app.use(bodyParser.json())
 app.use('/*', (req, res) => {
   if (req.subdomains[0] !== 'api') {
     const reducer = combineReducers(reducers)
@@ -53,7 +55,8 @@ app.use('/*', (req, res) => {
       res.end(HTML)  
     })
   } else {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    
+    console.log('test', req.body)  
     
     let opts = {
       url: 'http://localhost:3000' + req.originalUrl,
@@ -61,7 +64,7 @@ app.use('/*', (req, res) => {
       mode: 'cors',
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: null
     }
@@ -71,7 +74,9 @@ app.use('/*', (req, res) => {
         return response.json()
       })
       .then((response) => {
-        console.log(response)
+        console.log('OK', response)
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
         res.status(200).end(JSON.stringify(response))
       })
   }

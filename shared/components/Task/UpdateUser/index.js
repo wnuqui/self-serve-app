@@ -9,10 +9,10 @@ const STEPS = {
   2: DisplayResponse,
 }
 
-export default ({ task, fetchTaskData, errorTaskData, clearTask }) => {
+export default ({ task, fetchTaskData, clearTask }) => {
   const CurrentStep = STEPS[task.step]
   
   return (
-    <CurrentStep task={ task } fetchTaskData={ fetchTaskData } clearTask={ clearTask } errorTaskData={ errorTaskData }/>
+    <CurrentStep task={ task } fetchTaskData={ fetchTaskData } clearTask={ clearTask } />
   )
 }
