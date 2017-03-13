@@ -1,9 +1,11 @@
 import React from 'react'
 import SelectTask from './SelectTask/index'
+import ItemSupport from './ItemSupport/index'
 import UpdateUser from './UpdateUser/index'
 
 const TASKS = {
-  'UPDATE_USER': UpdateUser
+  'ITEM_SUPPORT': ItemSupport,
+  'UPDATE_USER': UpdateUser,
 }
 
 export default ({ task, fetchTaskData, clearTask, errorTaskData }) => {
