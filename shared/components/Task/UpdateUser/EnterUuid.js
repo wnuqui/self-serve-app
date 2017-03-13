@@ -7,14 +7,11 @@ export default ({ task, fetchTaskData, errorTaskData, clearTask }) => {
     let uuid = e.target.querySelector('.uuid').value
     
     if (uuid) {
-      var headers = new Headers()
       fetchTaskData({
         url: `http://api.foo.localhost:3001/users/${uuid}`,
         method: 'POST',
         mode: 'cors',
-        // cache: 'default',
         headers: {
-          // 'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ test: true })
