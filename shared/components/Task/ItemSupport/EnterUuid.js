@@ -15,8 +15,8 @@ export default ({ task, fetchItem }) => {
   
   return (
     <ul>
-      <li>Please enter Item UUID</li>
-      { task.error ? JSON.stringify(task.error) : null }
+      <li>Please enter Item ID</li>
+      { task.error ? task.error : null }
       <li>
         <form onSubmit={ (e) => {  submitForm(e) } }>
           <input className="uuid" type="text"></input>

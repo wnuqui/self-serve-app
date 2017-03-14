@@ -25,7 +25,7 @@ export default ({ task, fetchTaskData, errorTaskData, clearTask }) => {
   
   return (
     <ul>
-      <li>Please enter User UUID</li>
+      <li>Please enter User ID</li>
       { task.error ? JSON.stringify(task.error) : null }
       <li>
         <form onSubmit={ (e) => {  submitForm(e) } }>

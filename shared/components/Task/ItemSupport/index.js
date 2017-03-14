@@ -4,6 +4,7 @@ import DisplayResponse from './DisplayResponse'
 
 const STEPS = {
   0: EnterUuid,
+  1: DisplayResponse
 }
 
 export default (props) => {
