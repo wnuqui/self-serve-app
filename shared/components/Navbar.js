@@ -9,7 +9,7 @@ export default () => {
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav navbar-right">
           <li className="nav-item">
-            <a className="nav-link" href="#">Test</a>
+            <a className="nav-link" href="#"></a>
           </li>
         </ul>
       </div>
