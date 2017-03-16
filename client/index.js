@@ -8,6 +8,7 @@ import routes from '../shared/routes'
 import * as reducers from '../shared/reducers'
 import bootstrap from './bootstrap.min.css'
 import styles from './styles.css'
+import timeline from './timeline.css'
 
 let initialState = window.__INITIAL_STATE__
 

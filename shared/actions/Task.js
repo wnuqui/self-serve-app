@@ -44,13 +44,37 @@ export function fetchItem(uuid) {
             .then(r2 => r2.json())
             .then((r2) => {
               
-              fetch(`http://api.foo.localhost:3001/items/${uuid}/batch_transactions`)
+              fetch(`http://api.foo.localhost:3001/items/${uuid}/events`)
                 .then(r3 => r3.json())
                 .then((r3) => {
+                  var timeline = [].concat(r2.transactions.map((t) => {
+                    t.cardType = 'transaction'
+                    return t
+                  })).concat(r3.events.map((e) => {
+                    e.cardType = 'event'
+                    if (e.current_attributes) e.resource_updated_at = JSON.parse(e.current_attributes).updated_at
+                    return e
+                  })).concat([
+                    {
+                      cardType: 'event',
+                      action: 'Item Created',
+                      resource_updated_at: r1.items.created_at
+                    }
+                  ])
+                  
+                  timeline.sort((a, b) => {
+                    let aDate = new Date(a.cardType === 'transaction' ? a.updated_at : a.resource_updated_at)
+                    let bDate = new Date(b.cardType === 'transaction' ? b.updated_at : b.resource_updated_at)
+                    
+                    return aDate - bDate
+                    // return new Date(a.created_at) - new Date(b.created_at)
+                  })
+                  
                   let itemData = {
                     item: r1.items,
-                    transactions: r2.transactions,
-                    batch_transactions: r3.batch_transactions
+                    timeline: timeline
+                    // transactions: r2.transactions,
+                    // events: r3.events
                   }
                   
                   dispatch(updateTaskData(itemData))
