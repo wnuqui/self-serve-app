@@ -135,6 +135,7 @@
 .timeline-title {
   margin-top: 0;
   color: inherit;
+  text-transform: capitalize;
 }
 
 .timeline-body > p,

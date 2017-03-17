@@ -85,6 +85,49 @@ export function fetchItem(uuid) {
   }
 }
 
+export function fetchAccount(uuid) {
+  return function(dispatch) {
+    fetch(`http://api.foo.localhost:3001/transactions?account_id=${uuid}`)
+      .then(r1 => r1.json())
+      .then((r1) => {
+        
+        if (r1.errors) {
+          dispatch(displayError(JSON.stringify(r1.errors)))
+        } else {
+          fetch(`http://api.foo.localhost:3001/batch_transactions?account_id=${uuid}`)
+            .then(r2 => r2.json())
+            .then((r2) => {
+              let transactions = r1.transactions || []
+              let batch_transactions = r2.batch_transactions || []
+              
+              console.log(r2)
+              
+              var timeline = [].concat(transactions.map((t) => {
+                t.cardType = 'transaction'
+                return t
+              })).concat(batch_transactions.map((e) => {
+                e.cardType = 'batch_transaction'
+                return e
+              }))              
+              
+              timeline.sort((a, b) => {
+                // let aDate = new Date(a.cardType === 'transaction' ? a.updated_at : a.resource_updated_at)
+                // let bDate = new Date(b.cardType === 'transaction' ? b.updated_at : b.resource_updated_at)
+                return new Date(a.updated_at) - new Date(b.updated_at)
+              })
+              
+              let itemData = {
+                account_id: uuid,
+                timeline: timeline
+              }
+              
+              dispatch(updateTaskData(itemData))
+            })
+        }
+      })
+  }
+}
+
 export function fetchTaskData(opts, validate) {
   return function(dispatch) {
     console.log(opts)

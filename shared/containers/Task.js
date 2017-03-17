@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchItem, fetchTaskData } from '../actions/Task'
+import { fetchItem, fetchAccount } from '../actions/Task'
 import Task from '../components/Task/index'
 
 const mapStateToProps = (state) => {
@@ -13,8 +13,8 @@ const mapDispatchToProps = (dispatch) => {
     fetchItem: (uuid) => {
       dispatch(fetchItem(uuid))
     },
-    fetchTaskData: (url, validate) => {
-      dispatch(fetchTaskData(url, validate))
+    fetchAccount: (uuid) => {
+      dispatch(fetchAccount(uuid))
     }
   }
 }
