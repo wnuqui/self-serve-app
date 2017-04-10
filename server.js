@@ -21,9 +21,32 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import config from './webpack.config'
 
 const compiler = webpack(config)
+
+app.use('/api', (req, res) => {
+  let opts = {
+    url: process.env.URL + req.originalUrl.replace('api/', ''),
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      'Authorization': process.env.AUTH
+    },
+    body: null
+  }
+  fetch(opts.url, opts)
+    .then((response) => {
+      return response.json()
+    })
+    .then((response) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      res.status(200).end(JSON.stringify(response))
+    })
+})
+
 app.use(webpackDevMiddleware(compiler))
 app.use(webpackHotMiddleware(compiler))
-
 app.use('/', (req, res) => {
   const reducer = combineReducers(reducers)
   const store = createStore(reducer)
@@ -65,28 +88,5 @@ app.use('/', (req, res) => {
   })
 })
 
-app.use('api/*', (req, res) => {
-  let opts = {
-    url: process.env.URL + req.originalUrl,
-    method: 'GET',
-    mode: 'cors',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-      'Authorization': process.env.AUTH
-    },
-    body: null
-  }
-  
-  fetch(opts.url, opts)
-    .then((response) => {
-      return response.json()
-    })
-    .then((response) => {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-      res.status(200).end(JSON.stringify(response))
-    })
-})
 
 export default app
