@@ -40,3 +40,6 @@ dist
 .goals
 .DS_Store
 .env
+
+# Jet brains related
+/.idea
