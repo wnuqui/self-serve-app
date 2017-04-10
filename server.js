@@ -22,7 +22,11 @@ import config from './webpack.config'
 
 const compiler = webpack(config)
 
-app.use('/api', (req, res) => {
+app.use([
+    '/api/items',
+    '/api/transactions',
+    '/api/batch_transactions'
+  ], (req, res) => {
   let opts = {
     url: process.env.URL + req.originalUrl.replace('api/', ''),
     method: 'GET',
