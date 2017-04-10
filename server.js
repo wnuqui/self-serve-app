@@ -24,7 +24,7 @@ const compiler = webpack(config)
 app.use(webpackDevMiddleware(compiler))
 app.use(webpackHotMiddleware(compiler))
 
-app.use('/*', (req, res) => {
+app.use('/', (req, res) => {
   const reducer = combineReducers(reducers)
   const store = createStore(reducer)
   
