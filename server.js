@@ -10,7 +10,7 @@ import routes from './shared/routes'
 import * as reducers from './shared/reducers'
 import fetch from 'isomorphic-fetch'
 import bodyParser from 'body-parser'
-require('dotenv')
+require('dotenv').config()
 
 const app = express()
 
