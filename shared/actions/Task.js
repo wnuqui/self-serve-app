@@ -33,18 +33,18 @@ export function displayError(error) {
 
 export function fetchItem(uuid) {
   return function(dispatch) {
-    fetch(`${process.env.SERVER_URL}/${uuid}`)
+    fetch(`${process.env.SERVER_URL}/api/${uuid}`)
       .then(r1 => r1.json())
       .then((r1) => {
         
         if (r1.errors) {
           dispatch(displayError(JSON.stringify(r1.errors)))
         } else {
-          fetch(`${process.env.SERVER_URL}/${uuid}/transactions`)
+          fetch(`${process.env.SERVER_URL}/api/${uuid}/transactions`)
             .then(r2 => r2.json())
             .then((r2) => {
               
-              fetch(`${process.env.SERVER_URL}/${uuid}/events`)
+              fetch(`${process.env.SERVER_URL}/api/${uuid}/events`)
                 .then(r3 => r3.json())
                 .then((r3) => {
                   var timeline = [].concat(r2.transactions.map((t) => {
@@ -87,14 +87,14 @@ export function fetchItem(uuid) {
 
 export function fetchAccount(uuid) {
   return function(dispatch) {
-    fetch(`${process.env.SERVER_URL}/transactions?account_id=${uuid}`)
+    fetch(`${process.env.SERVER_URL}/api/transactions?account_id=${uuid}`)
       .then(r1 => r1.json())
       .then((r1) => {
         
         if (r1.errors) {
           dispatch(displayError(JSON.stringify(r1.errors)))
         } else {
-          fetch(`${process.env.SERVER_URL}/batch_transactions?account_id=${uuid}`)
+          fetch(`${process.env.SERVER_URL}/api/batch_transactions?account_id=${uuid}`)
             .then(r2 => r2.json())
             .then((r2) => {
               let transactions = r1.transactions || []
