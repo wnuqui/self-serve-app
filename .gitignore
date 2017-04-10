@@ -39,3 +39,4 @@ jspm_packages
 dist
 .goals
 .DS_Store
+.env

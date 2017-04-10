@@ -10,6 +10,7 @@ import routes from './shared/routes'
 import * as reducers from './shared/reducers'
 import fetch from 'isomorphic-fetch'
 import bodyParser from 'body-parser'
+require('dotenv')
 
 const app = express()
 
@@ -55,20 +56,17 @@ app.use('/*', (req, res) => {
       res.end(HTML)  
     })
   } else {
-    
-    console.log('test', req.body)  
-    
     let opts = {
-      url: 'http://localhost:3000' + req.originalUrl,
+      url: process.env.URL + req.originalUrl,
       method: 'GET',
       mode: 'cors',
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
+        'Authorization': process.env.AUTH
       },
       body: null
     }
-    
     fetch(opts.url, opts)
       .then((response) => {
         return response.json()
