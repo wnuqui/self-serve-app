@@ -65,7 +65,7 @@ app.use('/', (req, res) => {
   })
 })
 
-app.use('/api/*', (req, res) => {
+app.use('api/*', (req, res) => {
   let opts = {
     url: process.env.URL + req.originalUrl,
     method: 'GET',
