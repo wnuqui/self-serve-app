@@ -2,10 +2,12 @@ import React from 'react'
 import SelectTask from './SelectTask/index'
 import ItemSupport from './ItemSupport/index'
 import AccountSupport from './AccountSupport/index'
+import MarketplaceSupport from './MarketplaceSupport/index'
 
 const TASKS = {
   'ITEM_SUPPORT': ItemSupport,
   'ACCOUNT_SUPPORT': AccountSupport,
+  'MARKETPLACE_SUPPORT': MarketplaceSupport
 }
 
 export default (props) => {

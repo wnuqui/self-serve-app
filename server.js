@@ -25,7 +25,8 @@ const compiler = webpack(config)
 app.use([
     '/api/items',
     '/api/transactions',
-    '/api/batch_transactions'
+    '/api/batch_transactions',
+    '/api/marketplaces'
   ], (req, res) => {
   let opts = {
     url: process.env.URL + req.originalUrl.replace('api/', ''),

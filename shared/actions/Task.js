@@ -128,6 +128,55 @@ export function fetchAccount(uuid) {
   }
 }
 
+export function fetchMarketplace(uuid) {
+  return function(dispatch) {
+    fetch(`/api/marketplaces/${uuid}`)
+      .then(r1 => r1.json())
+      .then((r1) => {
+
+        if (r1.errors) {
+          dispatch(displayError(JSON.stringify(r1.errors)))
+        } else {
+          let marketplace = r1.marketplaces
+
+          let marketplaceData = {
+            marketplace: {
+              id: uuid,
+              name: marketplace.name,
+              short_name: marketplace.short_name,
+              color_1: marketplace.color_1,
+              color_2: marketplace.color_2,
+              color_3: marketplace.color_3,
+              color_4: marketplace.color_4,
+              color_5: marketplace.color_5,
+              website: marketplace.website,
+              payment_frequency: marketplace.payment_frequency,
+              alt_marketplace_id: marketplace.alt_marketplace_id,
+              state: marketplace.state,
+              logo: marketplace.logo,
+              active: marketplace.active,
+              alt_marketplace_auth: marketplace.alt_marketplace_auth,
+              business_information: marketplace.business_information,
+              marketplace_addons: marketplace.marketplace_addons,
+              currency: marketplace.currency,
+              sending_mobile: marketplace.sending_mobile,
+              sending_email: marketplace.sending_email,
+              custom_stylesheet: marketplace.custom_stylesheet,
+              cc_hold_for: marketplace.cc_hold_for,
+              soft_descriptors: marketplace.soft_descriptors,
+              seller_merchants: marketplace.seller_merchants,
+              email: marketplace.email,
+              seller_white_labeled: marketplace.seller_white_labeled,
+              partial_refunds: marketplace.partial_refunds,
+            }
+          }
+          console.log('marketplaceData', marketplaceData)
+          dispatch(updateTaskData(marketplaceData))
+        }
+      })
+  }
+}
+
 export function fetchTaskData(opts, validate) {
   return function(dispatch) {
     console.log(opts)
