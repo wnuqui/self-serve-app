@@ -33,18 +33,18 @@ export function displayError(error) {
 
 export function fetchItem(uuid) {
   return function(dispatch) {
-    fetch(`/api/${uuid}`)
+    fetch(`/api/items/${uuid}`)
       .then(r1 => r1.json())
       .then((r1) => {
         
         if (r1.errors) {
           dispatch(displayError(JSON.stringify(r1.errors)))
         } else {
-          fetch(`/api/${uuid}/transactions`)
+          fetch(`/api/items/${uuid}/transactions`)
             .then(r2 => r2.json())
             .then((r2) => {
               
-              fetch(`/api/${uuid}/events`)
+              fetch(`/api/items/${uuid}/events`)
                 .then(r3 => r3.json())
                 .then((r3) => {
                   var timeline = [].concat(r2.transactions.map((t) => {
