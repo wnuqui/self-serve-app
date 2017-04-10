@@ -1,12 +1,6 @@
-// import Immutable from 'immutable'
+const initialState = {}
 
-// const defaultState = Immutable.List()
-const defaultState = {
-  name: 'ITEM_SUPPORT',
-  step: 0
-}
-
-export default function taskReducer(state = defaultState, action) {
+export default function taskReducer(state = initialState, action) {
   switch(action.type) {
     case 'SELECT_TASK':
       return Object.assign({}, state, {
