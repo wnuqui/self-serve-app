@@ -76,7 +76,7 @@ app.use('/', (req, res) => {
       <html>
         <head>
           <meta charset="utf-8">
-          <title>Self Serve App Prototype</title>
+          <title>Thawing Garden 52500</title>
         </head>
         <body>
           <div id="app"><div>${componentHTML}</div></div>
