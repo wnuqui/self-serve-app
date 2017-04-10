@@ -13,8 +13,17 @@ import bodyParser from 'body-parser'
 require('dotenv').config()
 
 const app = express()
-
 app.use(bodyParser.json())
+
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import config from './webpack.config'
+
+const compiler = webpack(config)
+app.use(webpackDevMiddleware(compiler))
+app.use(webpackHotMiddleware(compiler))
+
 app.use('/*', (req, res) => {
   if (req.subdomains[0] !== 'api') {
     const reducer = combineReducers(reducers)
@@ -72,7 +81,6 @@ app.use('/*', (req, res) => {
         return response.json()
       })
       .then((response) => {
-        console.log('OK', response)
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
         res.status(200).end(JSON.stringify(response))
