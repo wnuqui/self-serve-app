@@ -4,7 +4,7 @@ export default () => {
   return (
     <nav className="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
       <a href="#" className="navbar-brand">
-        Self Serve
+        Thawing Garden 52500
       </a>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav navbar-right">
