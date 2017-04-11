@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchItem, fetchAccount } from '../actions/Task'
+import { fetchItem, fetchAccount, fetchMarketplace } from '../actions/Task'
 import Task from '../components/Task/index'
 
 const mapStateToProps = (state) => {
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchAccount: (uuid) => {
       dispatch(fetchAccount(uuid))
+    },
+    fetchMarketplace: (uuid) => {
+      dispatch(fetchMarketplace(uuid))
     }
   }
 }

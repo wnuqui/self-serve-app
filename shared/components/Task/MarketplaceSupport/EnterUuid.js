@@ -1,13 +1,13 @@
 import React from 'react'
 
-export default ({ task, fetchAccount }) => {
+export default ({ task, fetchMarketplace }) => {
   const submitForm = (e) => {
     e.preventDefault()
     
     let uuid = e.target.querySelector('.uuid').value
     
     if (uuid) {
-      fetchAccount(uuid)
+      fetchMarketplace(uuid)
     } else {
       console.log('Enter valid uuid')
     }
@@ -15,7 +15,7 @@ export default ({ task, fetchAccount }) => {
   
   return (
     <ul>
-      <li>Please enter Account ID</li>
+      <li>Please enter Marketplace ID</li>
       { task.error ? task.error : null }
       <li>
         <form onSubmit={ (e) => {  submitForm(e) } }>
