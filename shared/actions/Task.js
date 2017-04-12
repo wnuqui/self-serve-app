@@ -36,14 +36,14 @@ export function fetchItem(uuid) {
     fetch(`/api/items/${uuid}`)
       .then(r1 => r1.json())
       .then((r1) => {
-        
+
         if (r1.errors) {
           dispatch(displayError(JSON.stringify(r1.errors)))
         } else {
           fetch(`/api/items/${uuid}/transactions`)
             .then(r2 => r2.json())
             .then((r2) => {
-              
+
               fetch(`/api/items/${uuid}/events`)
                 .then(r3 => r3.json())
                 .then((r3) => {
@@ -61,22 +61,22 @@ export function fetchItem(uuid) {
                       resource_updated_at: r1.items.created_at
                     }
                   ])
-                  
+
                   timeline.sort((a, b) => {
                     let aDate = new Date(a.cardType === 'transaction' ? a.updated_at : a.resource_updated_at)
                     let bDate = new Date(b.cardType === 'transaction' ? b.updated_at : b.resource_updated_at)
-                    
+
                     return aDate - bDate
                     // return new Date(a.created_at) - new Date(b.created_at)
                   })
-                  
+
                   let itemData = {
                     item: r1.items,
                     timeline: timeline
                     // transactions: r2.transactions,
                     // events: r3.events
                   }
-                  
+
                   dispatch(updateTaskData(itemData))
                 })
             })
@@ -90,7 +90,7 @@ export function fetchAccount(uuid) {
     fetch(`/api/transactions?account_id=${uuid}`)
       .then(r1 => r1.json())
       .then((r1) => {
-        
+
         if (r1.errors) {
           dispatch(displayError(JSON.stringify(r1.errors)))
         } else {
@@ -99,30 +99,53 @@ export function fetchAccount(uuid) {
             .then((r2) => {
               let transactions = r1.transactions || []
               let batch_transactions = r2.batch_transactions || []
-              
+
               console.log(r2)
-              
+
               var timeline = [].concat(transactions.map((t) => {
                 t.cardType = 'transaction'
                 return t
               })).concat(batch_transactions.map((e) => {
                 e.cardType = 'batch_transaction'
                 return e
-              }))              
-              
+              }))
+
               timeline.sort((a, b) => {
                 // let aDate = new Date(a.cardType === 'transaction' ? a.updated_at : a.resource_updated_at)
                 // let bDate = new Date(b.cardType === 'transaction' ? b.updated_at : b.resource_updated_at)
                 return new Date(a.updated_at) - new Date(b.updated_at)
               })
-              
+
               let itemData = {
                 account_id: uuid,
                 timeline: timeline
               }
-              
+
               dispatch(updateTaskData(itemData))
             })
+        }
+      })
+  }
+}
+
+export function fetchLegalEntity(uuid) {
+  return function(dispatch) {
+    fetch(`/api/legal_entities/${uuid}`)
+      .then(r1 => r1.json())
+      .then((r1) => {
+        if (r1.errors) {
+          dispatch(displayError(JSON.stringify(r1.errors)))
+        } else {
+          let legalEntity = r1.legal_entities
+
+
+          let action = {
+            type: 'UPDATE_TASK_DATA',
+            date: Date.now(),
+            data: legalEntity
+          }
+
+          dispatch(action)
         }
       })
   }
