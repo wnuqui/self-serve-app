@@ -24,6 +24,7 @@ const compiler = webpack(config)
 
 app.use([
     '/api/items',
+    '/api/legal_entities',
     '/api/transactions',
     '/api/batch_transactions',
     '/api/marketplaces'
@@ -55,7 +56,7 @@ app.use(webpackHotMiddleware(compiler))
 app.use('/', (req, res) => {
   const reducer = combineReducers(reducers)
   const store = createStore(reducer)
-  
+
   match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
     if (err) {
       console.log(err)
@@ -69,9 +70,9 @@ app.use('/', (req, res) => {
         <RouterContext {...renderProps} />
       </Provider>
     ))
-    
+
     const initialState = store.getState()
-    
+
     const HTML = `
       <!DOCTYPE html>
       <html>
