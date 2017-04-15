@@ -7,7 +7,7 @@
     "clean": "rimraf dist",
     "build": "NODE_ENV=production npm run clean && webpack -p",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build && ./node_modules/babel-cli/bin/babel-node.js .",
+    "start": "NODE_ENV=production npm run build && ./node_modules/babel-cli/bin/babel-node.js .",
     "webpack-dev-server": "webpack-dev-server --progress --color",
     "serve": "npm run webpack-dev-server"
   },
