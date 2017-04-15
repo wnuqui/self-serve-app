@@ -50,8 +50,16 @@ app.use([
     })
 })
 
-app.use(webpackDevMiddleware(compiler))
-app.use(webpackHotMiddleware(compiler))
+if (process.env.NODE_ENV !== 'production') {
+  const webpackMiddleWare = require('webpack-dev-middleware');
+  const webpack = require('webpack');
+  const webpackConfig = require('./webpack.config.js');
+
+  app.use(webpackMiddleWare(webpack(webpackConfig)));
+} else {
+  app.use(express.static('dist'));
+}
+
 app.use('/', (req, res) => {
   const reducer = combineReducers(reducers)
   const store = createStore(reducer)
@@ -81,6 +89,8 @@ app.use('/', (req, res) => {
         </head>
         <body>
           <div id="app"><div>${componentHTML}</div></div>
+          <script type="application/javascript" src="/manifest.js"></script>
+          <script type="application/javascript" src="/vendor.js"></script>
           <script type="application/javascript" src="/bundle.js"></script>
           <script type="application/javascript">
             window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
