@@ -1,16 +1,28 @@
 var path = require('path')
 var webpack = require('webpack')
 
+const VENDOR_LIBS = [
+  'body-parser',
+  'history',
+  'isomorphic-fetch',
+  'react',
+  'react-dom',
+  'react-redux',
+  'react-router',
+  'redux',
+  'redux-thunk',
+  'routes'
+];
+
 module.exports = {
-  entry: [
-    // 'webpack-dev-server/client?http://127.0.0.1:8080/',
-    // 'webpack/hot/only-dev-server',
-    'webpack-hot-middleware/client',
-    './client'
-  ],
+  entry: {
+    webpackhotmiddleware: 'webpack-hot-middleware/client',
+    bundle: './client',
+    vendor: VENDOR_LIBS
+  },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -28,6 +40,12 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor', 'manifest']
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    })
   ],
   devtool: 'inline-source-map',
   devServer: {
