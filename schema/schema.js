@@ -58,6 +58,14 @@ const RootQuery = new GraphQLObjectType({
         return axios.get(`http://localhost:3001/api/marketplaces/${args.id}`)
            .then(resp => resp.data.marketplaces);
       }
+    },
+    marketplaces: {
+      type: new GraphQLList(MarketplaceType),
+      args: { search: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios.get(`http://localhost:3001/api/marketplaces?search=${args.search}`)
+          .then(resp => resp.data.marketplaces);
+      }
     }
   }
 })
