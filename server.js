@@ -10,17 +10,19 @@ import routes from './shared/routes'
 import * as reducers from './shared/reducers'
 import fetch from 'isomorphic-fetch'
 import bodyParser from 'body-parser'
+
+import expressGraphQL from 'express-graphql'
+import schema from './schema/schema'
+
 require('dotenv').config()
 
 const app = express()
 app.use(bodyParser.json())
 
-import webpack from 'webpack'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
-import config from './webpack.config'
-
-const compiler = webpack(config)
+app.use('/graphql', expressGraphQL({
+  schema,
+  graphiql: true
+}));
 
 app.use([
     '/api/items',
@@ -52,11 +54,13 @@ app.use([
 })
 
 if (process.env.NODE_ENV !== 'production') {
-  const webpackMiddleWare = require('webpack-dev-middleware');
-  const webpack = require('webpack');
-  const webpackConfig = require('./webpack.config.js');
+  const webpack = require('webpack')
+  const webpackConfig = require('./webpack.config.js')
+  const webpackDevMiddleware = require('webpack-dev-middleware')
+  const webpackHotMiddleware = require('webpack-hot-middleware')
 
-  app.use(webpackMiddleWare(webpack(webpackConfig)));
+  app.use(webpackDevMiddleware(webpack(webpackConfig)));
+  app.use(webpackHotMiddleware(webpack(webpackConfig)));
 } else {
   app.use(express.static('dist'));
 }
@@ -103,6 +107,5 @@ app.use('/', (req, res) => {
     res.end(HTML)
   })
 })
-
 
 export default app
