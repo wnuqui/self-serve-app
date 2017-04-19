@@ -8,6 +8,8 @@ const {
   GraphQLList
 } = graphql
 
+const GRAPHQL_URL = process.env.GRAPHQL_URL || 'http://localhost:3001'
+
 const MarketplaceAddonType = new GraphQLObjectType({
   name: 'MarketplaceAddon',
   fields: {
@@ -55,7 +57,7 @@ const RootQuery = new GraphQLObjectType({
       type: MarketplaceType,
       args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3001/api/marketplaces/${args.id}`)
+        return axios.get(`${GRAPHQL_URL}/api/marketplaces/${args.id}`)
            .then(resp => resp.data.marketplaces);
       }
     },
@@ -63,7 +65,7 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(MarketplaceType),
       args: { search: { type: GraphQLString } },
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3001/api/marketplaces?search=${args.search}`)
+        return axios.get(`${GRAPHQL_URL}/api/marketplaces?search=${args.search}`)
           .then(resp => resp.data.marketplaces);
       }
     }
