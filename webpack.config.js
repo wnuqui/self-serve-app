@@ -55,8 +55,5 @@ module.exports = {
       '*': 'http://127.0.0.1:' + (process.env.PORT || 3001)
     },
     host: '127.0.0.1'
-  },
-  resolveLoader: {
-    root: path.join(__dirname, 'node_modules')
   }
 }
