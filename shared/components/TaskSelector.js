@@ -1,13 +1,29 @@
 import React from 'react'
 
 export default ({ ct, selectTask }) => {
+  var tasks = [
+    { name: 'ITEM_SUPPORT', display_name: 'Item Support' },
+    { name: 'LEGAL_ENTITY_SUPPORT', display_name: 'Legal Entity Support' },
+    { name: 'ACCOUNT_SUPPORT', display_name: 'Account Support' },
+    { name: 'MARKETPLACE_SUPPORT', display_name: 'Marketplace Support' },
+  ];
   return (
     <nav className="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
       <ul className="nav nav-pills flex-column">
-        <li className={ (ct === 'ITEM_SUPPORT' ? "nav-item selected" : "nav-item") } onClick={ () => { selectTask('ITEM_SUPPORT') } }><a className="nav-link">Item Support</a></li>
-        <li className={ (ct === 'LEGAL_ENTITY_SUPPORT' ? "nav-item selected" : "nav-item") } onClick={ () => { selectTask('LEGAL_ENTITY_SUPPORT') } }><a className="nav-link">Legal Entity Support</a></li>
-        <li className={ (ct === 'ACCOUNT_SUPPORT' ? "nav-item selected" : "nav-item") } onClick={ () => { selectTask('ACCOUNT_SUPPORT') } }><a className="nav-link">Account Support</a></li>
-        <li className={ (ct === 'MARKETPLACE_SUPPORT' ? "nav-item selected" : "nav-item") } onClick={ () => { selectTask('MARKETPLACE_SUPPORT') } }><a className="nav-link">Marketplace Support</a></li>
+        {
+          tasks.map(task => {
+            let className = ct === task.name
+              ? "nav-item selected" 
+              : "nav-item";
+              
+            return (
+              <li className={ className } 
+                  onClick={ () => { selectTask(task.name) } }>
+                  <a className="nav-link">{ task.display_name }</a>
+              </li>
+            );
+          })
+        }
       </ul>
     </nav>
   )
