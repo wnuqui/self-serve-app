@@ -11,14 +11,15 @@ export default ({ ct, selectTask }) => {
     <nav className="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
       <ul className="nav nav-pills flex-column">
         {
-          tasks.map(task => {
+          tasks.map((task, index) => {
             let className = ct === task.name
               ? "nav-item selected" 
               : "nav-item";
               
             return (
               <li className={ className } 
-                  onClick={ () => { selectTask(task.name) } }>
+                  onClick={ () => { selectTask(task.name) } }
+                  key={ index }>
                   <a className="nav-link">{ task.display_name }</a>
               </li>
             );
