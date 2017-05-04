@@ -19,7 +19,6 @@ A universal JavaScript app to enable anyone in the business to perform common ta
   ```
   2. Run application
   ```
-  $ npm install -g yarn
   $ yarn install
   $ yarn start
   ```
