@@ -11,7 +11,7 @@ A universal JavaScript app to enable anyone in the business to perform common ta
   4. GraphQL (c/o Jesse)
   5. All the cool things
 
-## Usage
+## Development
   1. Create `.env` with `URL` and `AUTH`
   ```
   URL=localhost:3000
