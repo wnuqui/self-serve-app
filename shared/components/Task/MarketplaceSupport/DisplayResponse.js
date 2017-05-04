@@ -6,12 +6,11 @@ export default ({ task }) => {
   }
   
   let marketplace = task.data.marketplace || {}
-  console.log('marketplace ko', marketplace);
 
   return (
     <div className="container">
       <div className="page-header">
-        <h1 id="marketplace">{ `${marketplace.name}` }</h1>
+        <h1 id="marketplace">{ marketplace.name }</h1>
       </div>
 
       <ul className="timeline">
